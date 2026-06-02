@@ -1,0 +1,29 @@
+name: Sync from template-docs
+
+# Run manually or on a schedule to pull upstream template changes.
+# After syncing, review and resolve any conflicts in the project-specific
+# section of mkdocs.yml (site_name, site_url, repo_url, extra.*).
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * 1"  # Every Monday at 08:00 UTC
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync from upstream template
+        uses: repo-sync/pull-request@v2
+        with:
+          source_repo: "iciq-dmp/template-docs"
+          source_branch: "master"
+          destination_branch: "sync/template"
+          pr_title: "chore: sync from template-docs"
+          pr_body: |
+            Automated sync of common template changes.
+            Review carefully and resolve conflicts in the
+            project-specific block at the top of `mkdocs.yml`.
+          github_token: ${{ secrets.GITHUB_TOKEN }}
