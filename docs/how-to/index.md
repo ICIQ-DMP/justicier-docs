@@ -1,7 +1,7 @@
 # How-To Guides
 
 How-to guides are **task-oriented**. They show you how to solve a specific
-real-world problem, assuming you already know the basics.
+real-world problem with Justicier, assuming you already know the basics.
 
 ---
 

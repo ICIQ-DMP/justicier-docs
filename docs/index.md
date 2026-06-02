@@ -1,6 +1,8 @@
-# PROJECT_NAME
+# Justicier
 
-Brief one-paragraph description of what PROJECT_NAME does and who it is for.
+Justicier automates the justification of personnel payments and related documents at ICIQ.
+It receives a batch of salary PDFs, extracts the page for a given employee (identified by NAF number),
+and delivers the output through Microsoft SharePoint — replacing a manual, error-prone HR workflow.
 
 ## Where to start
 
