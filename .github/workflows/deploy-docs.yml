@@ -26,7 +26,18 @@ jobs:
       - name: Read source repo from properdocs.yml
         id: config
         run: |
-          SOURCE_REPO=$(awk '/source_repo:/ {print $2}' properdocs.yml)
+          SOURCE_REPO=$(python3 - <<'EOF'
+import yaml
+yaml.add_multi_constructor(
+    'tag:yaml.org,2002:python/',
+    lambda loader, tag_suffix, node: loader.construct_scalar(node),
+    Loader=yaml.SafeLoader,
+)
+with open('properdocs.yml') as f:
+    cfg = yaml.safe_load(f)
+print(cfg['extra']['source_repo'])
+EOF
+)
           echo "source_repo=$SOURCE_REPO" >> "$GITHUB_OUTPUT"
 
       - name: Checkout source code repo
