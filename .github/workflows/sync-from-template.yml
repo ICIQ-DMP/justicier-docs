@@ -2,7 +2,7 @@ name: Sync from template-docs
 
 # Run manually or on a schedule to pull upstream template changes.
 # After syncing, review and resolve any conflicts in the project-specific
-# section of mkdocs.yml (site_name, site_url, repo_url, extra.*).
+# section of properdocs.yml (site_name, site_url, repo_url, extra.*).
 
 on:
   workflow_dispatch:
@@ -25,5 +25,5 @@ jobs:
           pr_body: |
             Automated sync of common template changes.
             Review carefully and resolve conflicts in the
-            project-specific block at the top of `mkdocs.yml`.
+            project-specific block at the top of `properdocs.yml`.
           github_token: ${{ secrets.GITHUB_TOKEN }}
