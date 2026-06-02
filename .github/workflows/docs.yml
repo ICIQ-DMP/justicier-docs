@@ -1,22 +1,20 @@
-name: Deploy Documentation
+name: Docs
 
 on:
+  pull_request:
   push:
     branches: [main, master]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
-  group: "pages"
+  group: pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout docs repo
         uses: actions/checkout@v4
@@ -45,8 +43,6 @@ EOF
         with:
           repository: ${{ steps.config.outputs.source_repo }}
           path: source
-          # If the source repo is private, add a PAT secret:
-          # token: ${{ secrets.SOURCE_REPO_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -65,9 +61,22 @@ EOF
         with:
           path: site
 
-  deploy:
+  markdownlint:
     needs: build
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: "docs/**/*.md"
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
