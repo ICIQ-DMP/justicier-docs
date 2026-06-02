@@ -1,6 +1,6 @@
 # template-docs
 
-MkDocs template for ICIQ-DMP project documentation.  
+ProperDocs base repo for ICIQ-DMP project documentation.  
 Fork this repo to create `PROJECT-docs` for any ICIQ project.
 
 ## Forking checklist
@@ -13,6 +13,11 @@ Fork this repo to create `PROJECT-docs` for any ICIQ project.
 3. Edit `docs/index.md` with the project description.
 4. Enable GitHub Pages in the repo settings (source: **GitHub Actions**).
 5. Push to `main`/`master` — the `deploy-docs.yml` workflow will build and deploy.
+
+## Syncing template changes
+
+Use GitHub's **Sync fork** button (or `git merge upstream/master` locally).  
+The only expected conflict is the PROJECT-SPECIFIC block at the top of `properdocs.yml`.
 
 ## Structure
 
@@ -27,15 +32,8 @@ docs/
 properdocs.yml
 requirements.txt
 .github/workflows/
-├── deploy-docs.yml         # Build + deploy to GitHub Pages
-└── sync-from-template.yml  # PR from template-docs when it changes
+└── deploy-docs.yml     # Build + deploy to GitHub Pages
 ```
-
-## Syncing template changes
-
-Run the `sync-from-template` workflow manually (or let it run on its Monday
-schedule) to get a PR with the latest common changes from `template-docs`.
-Resolve any conflicts in the project-specific block of `properdocs.yml`.
 
 ## Local development
 

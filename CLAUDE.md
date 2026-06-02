@@ -1,6 +1,6 @@
 # CLAUDE.md — template-docs
 
-This is the **template** documentation repo for ICIQ-DMP projects.
+This is the **upstream** documentation repo for ICIQ-DMP projects.
 It is forked to create per-project docs repos.
 
 ## Context
@@ -18,7 +18,7 @@ It is forked to create per-project docs repos.
 ## Architecture
 
 ```
-template-docs (this repo)
+template-docs (this repo, upstream)
     └── forked to: imarina-docs, justicier-docs, justifactu-docs
                        │
                        │ CI workflow checks out source repo at build time
@@ -45,7 +45,7 @@ docstrings in the source repo. The reference section is always auto-generated.
 
 ## Toolchain
 
-- **MkDocs** — static site generator
+- **ProperDocs** — static site generator (MkDocs 1.x continuation)
 - **Material for MkDocs** — theme
 - **mkdocstrings[python]** — generates Reference from docstrings (Google style)
 - **mkdocs-gen-files** — runs `docs/gen_ref_pages.py` at build time
@@ -58,11 +58,10 @@ All pinned in `requirements.txt`.
 
 | File | Purpose |
 |---|---|
-| `properdocs.yml` | MkDocs config; top block is project-specific, rest is common |
-| `requirements.txt` | Python dependencies for MkDocs build |
+| `properdocs.yml` | ProperDocs config; top block is project-specific, rest is common |
+| `requirements.txt` | Python dependencies for the build |
 | `docs/gen_ref_pages.py` | Walks `source/` and emits one .md per Python module |
 | `.github/workflows/deploy-docs.yml` | Builds + deploys to GitHub Pages |
-| `.github/workflows/sync-from-template.yml` | Opens a PR from template-docs on a schedule |
 
 ## Forking a new project
 
@@ -72,14 +71,17 @@ All pinned in `requirements.txt`.
 4. Enable Pages in repo settings → source: GitHub Actions
 5. Push → CI deploys
 
-## Template update workflow
+## Syncing upstream changes into a fork
 
-When this template repo changes, forked repos can sync via:
-- GitHub UI: "Sync fork" button
-- Automated: `sync-from-template.yml` workflow opens a PR every Monday
+Use GitHub's **Sync fork** button, or locally:
 
-When resolving the sync PR, only conflicts in the PROJECT-SPECIFIC block of
-`properdocs.yml` need manual attention.
+```bash
+git fetch upstream
+git merge upstream/master
+```
+
+Conflicts will only appear in the PROJECT-SPECIFIC block at the top of
+`properdocs.yml` — everything else is common infrastructure.
 
 ## Local development
 
