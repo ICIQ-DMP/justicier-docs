@@ -1,0 +1,13 @@
+default: true
+
+# Allow longer lines; tables and code blocks are exempt regardless
+MD013:
+  line_length: 120
+  tables: false
+  code_blocks: false
+
+# Allow inline HTML (required for Material admonitions and HTML-in-md features)
+MD033: false
+
+# First line need not be a heading (index pages often open with prose)
+MD041: false

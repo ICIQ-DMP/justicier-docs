@@ -20,6 +20,7 @@ site_dir: site
 
 theme:
   name: material
+  custom_dir: docs/overrides
   palette:
     - scheme: default
       primary: indigo
@@ -43,7 +44,16 @@ theme:
     - content.code.annotate
 
 plugins:
-  - search
+  - search:
+      lang: en
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+  - git-revision-date-localized:
+      enable_creation_date: true
+      fallback_to_build_date: true
+  - minify:
+      minify_html: true
+  - redirects:
+      redirect_maps: {}
   - gen-files:
       scripts:
         - docs/gen_ref_pages.py
@@ -62,6 +72,9 @@ plugins:
             members_order: source
             separate_signature: true
             show_signature_annotations: true
+            show_if_no_docstring: false
+            inherited_members: true
+            show_bases: true
 
 nav:
   - Home: index.md
@@ -73,7 +86,11 @@ nav:
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite

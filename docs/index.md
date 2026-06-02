@@ -8,5 +8,5 @@ Brief one-paragraph description of what PROJECT_NAME does and who it is for.
 |---|---|
 | Learn by doing | [Tutorials](tutorials/index.md) |
 | Solve a specific problem | [How-To Guides](how-to/index.md) |
-| Look up a class or function | [Reference](reference/) |
+| Look up a class or function | [Reference](reference/index.md) |
 | Understand the design | [Explanation](explanation/index.md) |

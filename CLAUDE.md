@@ -58,7 +58,7 @@ All pinned in `requirements.txt`.
 
 | File | Purpose |
 |---|---|
-| `mkdocs.yml` | MkDocs config; top block is project-specific, rest is common |
+| `properdocs.yml` | MkDocs config; top block is project-specific, rest is common |
 | `requirements.txt` | Python dependencies for MkDocs build |
 | `docs/gen_ref_pages.py` | Walks `source/` and emits one .md per Python module |
 | `.github/workflows/deploy-docs.yml` | Builds + deploys to GitHub Pages |
@@ -67,7 +67,7 @@ All pinned in `requirements.txt`.
 ## Forking a new project
 
 1. Fork to `iciq-dmp/PROJECT-docs`
-2. Edit the PROJECT-SPECIFIC block in `mkdocs.yml` (site_name, site_url, extra.source_repo)
+2. Edit the PROJECT-SPECIFIC block in `properdocs.yml` (site_name, site_url, extra.source_repo)
 3. Edit `docs/index.md`
 4. Enable Pages in repo settings → source: GitHub Actions
 5. Push → CI deploys
@@ -79,14 +79,14 @@ When this template repo changes, forked repos can sync via:
 - Automated: `sync-from-template.yml` workflow opens a PR every Monday
 
 When resolving the sync PR, only conflicts in the PROJECT-SPECIFIC block of
-`mkdocs.yml` need manual attention.
+`properdocs.yml` need manual attention.
 
 ## Local development
 
 ```bash
 pip install -r requirements.txt
 git clone https://github.com/iciq-dmp/PROJECT_NAME source
-mkdocs serve
+properdocs serve
 ```
 
 `mkdocstrings` resolves imports from `source/`, so the source repo must be

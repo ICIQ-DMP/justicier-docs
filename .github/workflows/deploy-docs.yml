@@ -20,13 +20,15 @@ jobs:
     steps:
       - name: Checkout docs repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Read source repo from mkdocs.yml
+      - name: Read source repo from properdocs.yml
         id: config
         run: |
           SOURCE_REPO=$(python3 -c "
           import yaml
-          with open('mkdocs.yml') as f:
+          with open('properdocs.yml') as f:
               cfg = yaml.safe_load(f)
           print(cfg['extra']['source_repo'])
           ")
@@ -49,8 +51,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Build MkDocs site
-        run: mkdocs build --strict
+      - name: Build documentation site
+        run: properdocs build --strict
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
