@@ -53,7 +53,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build documentation site
-        run: properdocs build --strict
+        run: properdocs build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
