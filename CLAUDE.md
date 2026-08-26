@@ -1,7 +1,11 @@
-# CLAUDE.md — template-docs
+# CLAUDE.md — docs-template
 
-This is the **upstream** documentation repo for ICIQ-DMP projects.
-It is forked to create per-project docs repos.
+This is the **upstream** documentation repo for ICIQ-DMP projects. It is a
+GitHub template repository — per-project docs repos should be created from
+it via **"Use this template"**, not by forking (see README.md's "Which one:
+template or fork?" for why: forking silently disables GitHub Actions until
+a human manually re-enables it in the browser, with no API/CLI equivalent —
+this is what left `imarina-load-researchers-docs` unpublished for months).
 
 ## Context
 
@@ -18,18 +22,18 @@ It is forked to create per-project docs repos.
 ## Architecture
 
 ```
-template-docs (this repo, upstream)
-    └── forked to: imarina-load-researchers-docs, justicier-docs, justifactu-docs
+docs-template (this repo, upstream, a GitHub template repository)
+    └── generated into: imarina-load-researchers-docs, justicier-docs, justifactu-docs
                        │
                        │ CI workflow checks out source repo at build time
                        ▼
-              source/   (cloned from iciq-dmp/PROJECT)
+              source/   (cloned from ICIQ-DMP/PROJECT)
                        │
                        ▼
               mkdocstrings reads docstrings → generates reference/
 ```
 
-Each docs repo publishes to GitHub Pages via the `deploy-docs.yml` workflow.
+Each docs repo publishes to GitHub Pages via the `docs.yml` workflow.
 
 ## Information Architecture (Diataxis)
 
@@ -61,24 +65,41 @@ All pinned in `requirements.txt`.
 | `properdocs.yml` | ProperDocs config; top block is project-specific, rest is common |
 | `requirements.txt` | Python dependencies for the build |
 | `docs/gen_ref_pages.py` | Walks `source/` and emits one .md per Python module |
-| `.github/workflows/deploy-docs.yml` | Builds + deploys to GitHub Pages |
+| `.github/workflows/docs.yml` | Build + markdownlint + deploy to GitHub Pages |
 
-## Forking a new project
+## Creating a new project's docs repo
 
-1. Fork to `iciq-dmp/PROJECT-docs`
+1. **"Use this template" → "Create a new repository"** on GitHub (not
+   "Fork" — see README.md's "Which one: template or fork?"), named
+   `ICIQ-DMP/PROJECT-docs`.
 2. Edit the PROJECT-SPECIFIC block in `properdocs.yml` (site_name, site_url, extra.source_repo)
 3. Edit `docs/index.md`
-4. Enable Pages in repo settings → source: GitHub Actions
-5. Push → CI deploys
+4. Enable Pages in repo settings → source: GitHub Actions (or
+   `POST /repos/ICIQ-DMP/PROJECT-docs/pages` with `{"build_type": "workflow"}`)
+5. Push → CI builds, lints and deploys
 
-## Syncing upstream changes into a fork
+If a `PROJECT-docs` repo was created by forking instead (or already exists
+as a fork from before this repo became a template repository — e.g.
+`imarina-load-researchers-docs`, `justicier-docs`, `justifactu-docs`), step
+1 has a hidden prerequisite: open that fork's **Actions** tab in a browser
+and click **"I understand my workflows, go ahead and enable them"** —
+GitHub disables Actions on every fork until this is done manually, with no
+API/CLI way to do it. Skipping this doesn't error; the `docs.yml` workflow
+just never runs on push, so the site silently never publishes.
 
-Use GitHub's **Sync fork** button, or locally:
+## Picking up upstream template fixes
+
+If the docs repo was created via "Use this template," it has no fork
+relationship to sync from — add this repo as a second remote instead:
 
 ```bash
-git fetch upstream
-git merge upstream/master
+git remote add template https://github.com/ICIQ-DMP/docs-template.git
+git fetch template
+git merge template/master
 ```
+
+If it's an existing fork, `git fetch upstream && git merge upstream/master`
+(or GitHub's **Sync fork** button) still works as before.
 
 Conflicts will only appear in the PROJECT-SPECIFIC block at the top of
 `properdocs.yml` — everything else is common infrastructure.
