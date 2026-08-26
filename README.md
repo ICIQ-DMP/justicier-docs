@@ -1,61 +1,34 @@
 # docs-template
 
 ProperDocs base repo for ICIQ-DMP project documentation.  
-This repo is a GitHub **template repository** — create `PROJECT-docs` from
-it using **"Use this template" → "Create a new repository"** on GitHub, not
-"Fork" (see "Which one: template or fork?" below for why that distinction
-matters).
+Fork this repo to create `PROJECT-docs` for any ICIQ project.
 
-## New-project checklist
+## Forking checklist
 
-1. On [this repo's GitHub page](https://github.com/ICIQ-DMP/docs-template),
-   click **"Use this template" → "Create a new repository"**, owned by
-   `ICIQ-DMP`, named `PROJECT-docs`.
-2. In `properdocs.yml`, update the **PROJECT-SPECIFIC** block at the top:
+1. Fork this repo to `ICIQ-DMP/PROJECT-docs`.
+2. **Enable GitHub Actions for the fork**: open the new fork's **Actions**
+   tab in a browser and click **"I understand my workflows, go ahead and
+   enable them."** GitHub disables Actions on every fork by default, and
+   there's no error or failed run to notice if you skip this — the
+   `docs.yml` workflow just silently never triggers on push, and no API/CLI
+   can do this step for you. Do this **before** anything else below; it's
+   exactly what left `imarina-load-researchers-docs` unpublished for
+   months, because this step was missed.
+3. In `properdocs.yml`, update the **PROJECT-SPECIFIC** block at the top:
    - `site_name`, `site_url`, `repo_url`, `repo_name`
    - `extra.source_repo` — the GitHub repo containing the source code
    - `extra.project_name`
-3. Edit `docs/index.md` with the project description.
-4. Enable GitHub Pages in the repo settings (source: **GitHub Actions**) —
+4. Edit `docs/index.md` with the project description.
+5. Enable GitHub Pages in the repo settings (source: **GitHub Actions**) —
    or call `POST /repos/ICIQ-DMP/PROJECT-docs/pages` with
    `{"build_type": "workflow"}`, which does the same thing.
-5. Push to `main`/`master` — the `docs.yml` workflow will build, lint and
+6. Push to `main`/`master` — the `docs.yml` workflow will build, lint and
    deploy.
 
-## Which one: template or fork?
+## Syncing template changes
 
-**Use "Use this template" (recommended).** The new repo is fully
-independent — no relationship to this repo at all — so its GitHub Actions
-run immediately, with no extra step. The trade-off: there's no "Sync fork"
-button to pull in template fixes later; see "Picking up template fixes
-later" below for the (slightly more manual) equivalent.
-
-**Fork, if you specifically want `git fetch upstream && git merge
-upstream/master` to stay available.** But be aware: **GitHub disables
-Actions on every fork by default**, silently — no error, no failed run, the
-`docs.yml` workflow just never triggers on push until a repo admin opens
-the forked repo's **Actions** tab in a browser and clicks **"I understand my
-workflows, go ahead and enable them."** This has no API equivalent, so it
-can't be scripted or done from the command line, and it's easy to fork,
-finish the rest of this checklist, and not notice publishing is silently
-not happening at all until someone goes looking — this is exactly what
-happened to `imarina-load-researchers-docs`, whose site sat unpublished for
-months because of this. If you do fork, do this step **first**, right after
-forking, before anything else.
-
-## Picking up template fixes later
-
-If you used "Use this template" (no fork relationship), the closest
-equivalent to "Sync fork" is:
-
-```bash
-git remote add template https://github.com/ICIQ-DMP/docs-template.git
-git fetch template
-git merge template/master   # or: git cherry-pick <commit>, for one fix
-```
-
-The only expected conflict is the PROJECT-SPECIFIC block at the top of
-`properdocs.yml`.
+Use GitHub's **Sync fork** button (or `git merge upstream/master` locally).  
+The only expected conflict is the PROJECT-SPECIFIC block at the top of `properdocs.yml`.
 
 ## Structure
 
