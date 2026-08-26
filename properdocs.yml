@@ -2,18 +2,22 @@
 # PROJECT-SPECIFIC — change these when forking the template
 # ─────────────────────────────────────────────────────────────────────────────
 site_name: "PROJECT_NAME Documentation"
-site_url: "https://iciq-dmp.github.io/PROJECT_NAME/"
-repo_url: "https://github.com/iciq-dmp/PROJECT_NAME"
-repo_name: "iciq-dmp/PROJECT_NAME"
+# The docs repo itself is named PROJECT_NAME-docs (see README.md's forking
+# checklist), and that's what GitHub Pages actually publishes under -- not
+# PROJECT_NAME. Getting this wrong doesn't break the build, but it does mean
+# the site's canonical URL/sitemap/social-preview tags point at a 404.
+site_url: "https://ICIQ-DMP.github.io/PROJECT_NAME-docs/"
+repo_url: "https://github.com/ICIQ-DMP/PROJECT_NAME"
+repo_name: "ICIQ-DMP/PROJECT_NAME"
 
 # Source code repo from which API reference is generated.
-# This value is also read by the CI workflow (see .github/workflows/deploy-docs.yml).
+# This value is also read by the CI workflow (see .github/workflows/docs.yml).
 extra:
-  source_repo: "iciq-dmp/PROJECT_NAME"
+  source_repo: "ICIQ-DMP/PROJECT_NAME"
   project_name: "PROJECT_NAME"
 
 # ─────────────────────────────────────────────────────────────────────────────
-# COMMON — do not change; update in template-docs and sync to forks
+# COMMON — do not change; update in docs-template and sync to forks
 # ─────────────────────────────────────────────────────────────────────────────
 docs_dir: docs
 site_dir: site
