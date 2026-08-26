@@ -2,18 +2,20 @@
 # PROJECT-SPECIFIC — change these when forking the template
 # ─────────────────────────────────────────────────────────────────────────────
 site_name: "Justicier Documentation"
-site_url: "https://iciq-dmp.github.io/justicier/"
+# The docs repo itself is named justicier-docs, and that's what GitHub
+# Pages actually publishes under -- not justicier.
+site_url: "https://ICIQ-DMP.github.io/justicier-docs/"
 repo_url: "https://github.com/ICIQ-DMP/Justicier"
 repo_name: "ICIQ-DMP/Justicier"
 
 # Source code repo from which API reference is generated.
-# This value is also read by the CI workflow (see .github/workflows/deploy-docs.yml).
+# This value is also read by the CI workflow (see .github/workflows/docs.yml).
 extra:
   source_repo: "ICIQ-DMP/Justicier"
   project_name: "Justicier"
 
 # ─────────────────────────────────────────────────────────────────────────────
-# COMMON — do not change; update in template-docs and sync to forks
+# COMMON — do not change; update in docs-template and sync to forks
 # ─────────────────────────────────────────────────────────────────────────────
 docs_dir: docs
 site_dir: site
